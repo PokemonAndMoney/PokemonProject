@@ -60,7 +60,7 @@ public String Login(
 	//either no email found or incorrect password
 	if(user == null) {
 		redirectAttributes.addFlashAttribute("errors", new ArrayList<String>(Arrays.asList("invalid credentials")));
-		return "redirect:/login";
+		return "redirect:/home/login";
 	}
 	//creating session for user after successful login
 	session.setAttribute("userId", user.getId());
