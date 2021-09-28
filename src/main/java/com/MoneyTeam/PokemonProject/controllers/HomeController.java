@@ -1,5 +1,6 @@
 package com.MoneyTeam.PokemonProject.controllers;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -14,6 +15,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import com.MoneyTeam.PokemonProject.classes.APIPoke;
+import com.MoneyTeam.PokemonProject.classes.Ability;
+import com.MoneyTeam.PokemonProject.classes.Move;
+import com.MoneyTeam.PokemonProject.classes.Sprite;
+import com.MoneyTeam.PokemonProject.classes.Stat;
+
 @SpringBootApplication
 @RestController
 public class HomeController extends BaseController {
@@ -27,10 +34,29 @@ public class HomeController extends BaseController {
 		return "index.jsp";
 	}
 	@GetMapping("/{name}")
-	public Object getPokemon(@PathVariable("name") String name){
-		LinkedHashMap pokemon =  restTemplate.getForObject(pokemonUrl + name, LinkedHashMap.class);
-//		return pokemon.get("abilities");
-		return pokemon;
+	public String getPokemon(@PathVariable("name") String name){
+		Object pokemonObj =  restTemplate.getForObject(pokemonUrl + name, Object.class); // retrieves entire pokemon object	
+		
+		// api calls 
+		APIPoke pokemon =  restTemplate.getForObject(pokemonUrl + name, APIPoke.class);
+		
+		// abilities
+		List<Ability> allAbililties = pokemon.getAbilities(); // returns array of linked hashmaps containing the ability data
+		String abilityName = (String) pokemon.getAbilities().get(0).getAbility().getName(); // returns the name of the first ability within the array of linked hashmaps 
+		
+		// moves 
+		List<Move> allMoves = pokemon.getMoves(); // returns array of linked hashmaps containing the moves data
+		String move = pokemon.getMoves().get(0).getMove().getName(); // returns the name of the first move within the array of linked hashmaps
+		
+		// sprites or pokemon image
+		Sprite allSprites = pokemon.getSprites(); // returns array of linked hashmaps containing the url's of the pokemon's front and back images
+		String pokeSprite = pokemon.getSprites().getBack_default(); // returns url of the pokemon's default back image
+		
+		// stats
+		List<Stat> allStats = pokemon.getStats(); // returns array of linked hashmaps containing data of the pokemons base stats
+		int statValue = pokemon.getStats().get(0).getBase_stat(); // returns the base stat value of the first linked hashmap in the array (hp)
+		String statName = pokemon.getStats().get(0).getStat().getName(); // returns the stat name of the first linked hashmap in the array (hp)
+		return statName;
 	}
 	
 }
