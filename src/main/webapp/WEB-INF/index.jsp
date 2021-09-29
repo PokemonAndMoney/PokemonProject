@@ -35,7 +35,14 @@
       </ul>
     </div>
 		</nav>
-    	<div></div>
+    	<div>
+       <% for(int i = 1; i < 808; i+=1) { %>
+        <tr>      
+            <td><a href="/view/<%=i%>"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-viii/icons/<%=i%>.png" alt="Pokemon" width="100" height="100"></a>
+            </td>
+        </tr>
+    <% } %>
+      </div>
     </div>
 </body>
 </html>
