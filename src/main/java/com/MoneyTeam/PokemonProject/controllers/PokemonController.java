@@ -21,11 +21,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.lang.*;
 
-import com.MoneyTeam.PokemonProject.classes.APIPoke;
-import com.MoneyTeam.PokemonProject.classes.Ability;
-import com.MoneyTeam.PokemonProject.classes.Move;
-import com.MoneyTeam.PokemonProject.classes.Sprite;
-import com.MoneyTeam.PokemonProject.classes.Stat;
+import com.MoneyTeam.PokemonProject.classes.*;
 import com.MoneyTeam.PokemonProject.models.*;
 import com.MoneyTeam.PokemonProject.services.*;
 import javax.servlet.http.*;
@@ -64,8 +60,10 @@ Object pokemonObj =  restTemplate.getForObject(pokemonUrl + name, Object.class);
 		String statName = pokemon.getStats().get(0).getStat().getName(); // returns the stat name of the first linked hashmap in the array (hp)
 		// name
 		String pokemon_name = pokemon.getName();
-		
-		
+		// type
+		List<Type> Types = pokemon.getTypes();
+		String typeName = pokemon.getTypes().get(0).getType().getName(); // returns the stat name of the first linked hashmap in the array (hp)
+
 		//adding stuff to model
 		model.addAttribute("sprite", frontSprite);
 		model.addAttribute("name", pokemon_name);
@@ -81,13 +79,31 @@ Object pokemonObj =  restTemplate.getForObject(pokemonUrl + name, Object.class);
 		model.addAttribute("spDefVal", pokemon.getStats().get(4).getBase_stat());
 		model.addAttribute("spd", pokemon.getStats().get(5).getStat().getName());
 		model.addAttribute("spdVal", pokemon.getStats().get(5).getBase_stat());
+
 		List<String> move_list = new ArrayList<>();
 		List<String> moveUrl_list = new ArrayList<>();
+		List<String> ability_list = new ArrayList<>();
+		List<String> abilityUrl_list = new ArrayList<>();
+		List<String> type_list = new ArrayList<>();
+		List<String> typeUrl_list = new ArrayList<>();
 		for(int i = 0; i<allMoves.size();i++) {
 			move_list.add(pokemon.getMoves().get(i).getMove().getName());
 			moveUrl_list.add(pokemon.getMoves().get(i).getMove().getUrl());
 		}
+		for(int i = 0; i<allAbililties.size();i++) {
+			ability_list.add((String) pokemon.getAbilities().get(i).getAbility().getName());
+			abilityUrl_list.add(pokemon.getAbilities().get(i).getAbility().getUrl());
+		}
+		for(int i = 0; i<Types.size();i++) {
+			type_list.add((String) pokemon.getTypes().get(i).getType().getName());
+			typeUrl_list.add(pokemon.getTypes().get(i).getType().getUrl());
+		}
 		model.addAttribute("moves", move_list);
+		model.addAttribute("abilities", ability_list);
+		model.addAttribute("types", type_list);
+		model.addAttribute("id", pokemon.getId());
+		//pokemon id
+		System.out.println(pokemon.getId());
 		return "/pokemon.jsp";
 	}
 }

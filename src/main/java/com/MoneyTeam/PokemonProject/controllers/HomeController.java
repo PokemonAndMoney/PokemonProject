@@ -34,7 +34,7 @@ public class HomeController extends BaseController {
 		return "index.jsp";
 	}
 	@GetMapping("/{name}")
-	public String getPokemon(@PathVariable("name") String name){
+	public Object getPokemon(@PathVariable("name") String name){
 		Object pokemonObj =  restTemplate.getForObject(pokemonUrl + name, Object.class); // retrieves entire pokemon object	
 		
 		// api calls 
@@ -56,7 +56,7 @@ public class HomeController extends BaseController {
 		List<Stat> allStats = pokemon.getStats(); // returns array of linked hashmaps containing data of the pokemons base stats
 		int statValue = pokemon.getStats().get(0).getBase_stat(); // returns the base stat value of the first linked hashmap in the array (hp)
 		String statName = pokemon.getStats().get(0).getStat().getName(); // returns the stat name of the first linked hashmap in the array (hp)
-		return statName;
+		return pokemonObj;
 	}
 	
 }
