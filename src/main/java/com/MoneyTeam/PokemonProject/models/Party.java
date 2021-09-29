@@ -15,6 +15,7 @@ public class Party {
 	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="user_id")
 	private User user;
+
 	@Column(updatable=false)
 	public Date createdAt;
 	public Date updatedAt;
@@ -39,14 +40,24 @@ public class Party {
 	public Date getCreatedAt() {
 		return createdAt;
 	}
-	public void setCreatedAt(Date createdAt) {
-		this.createdAt = createdAt;
-	}
-	public Date getUpdatedAt() {
-		return updatedAt;
-	}
+	@PrePersist
+    protected void onCreate(){
+        this.createdAt = new Date();
+    }
+
+	
+    @PreUpdate
+    protected void onUpdate(){
+        this.updatedAt = new Date();
+    }
+
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
 	}
-	
+	public User getUser() {
+		return user;
+	}
+	public void setUser(User user) {
+		this.user = user;
+	}
 }

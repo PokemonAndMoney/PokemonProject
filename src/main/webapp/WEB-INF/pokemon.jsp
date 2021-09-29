@@ -57,11 +57,11 @@
         
         </div>
         <div>
-        <!--><form:form method="POST" action="/party/add" modelAttribute="party"><!-->
+        <form:form method="POST" action="/party/add" modelAttribute="pokemon">
         Move 1:
         <select>                
         <c:forEach items="${moves}" var="move">
-			      <option>
+			      <option path="moves">
                 <c:out value="${move}"/>
                 </option>            
 		  </c:forEach>
@@ -71,7 +71,7 @@
         Move 2:
         <select>                
         <c:forEach items="${moves}" var="move">
-			      <option>
+			      <option path="moves">
                 <c:out value="${move}"/>
                 </option>            
 		  </c:forEach>
@@ -81,7 +81,7 @@
         Move 3:
         <select>                
         <c:forEach items="${moves}" var="move">
-			      <option>
+			      <option path="moves">
                 <c:out value="${move}"/>
                 </option>            
 		  </c:forEach>
@@ -91,7 +91,7 @@
         Move 4:
         <select>                
         <c:forEach items="${moves}" var="move">
-			      <option>
+			      <option path="moves">
                 <c:out value="${move}"/>
                 </option>            
 		  </c:forEach>
@@ -101,11 +101,13 @@
         Ability:
         <select>                
         <c:forEach items="${abilities}" var="ability">
-			      <option>
+			      <option path="ability">
                 <c:out value="${ability}"/>
                 </option>            
 		  </c:forEach>
         </select>
+        <form:input type="hidden" path="name" value="${name}">
+        <form:input type="hidden" path="id" value="${id}">
         <c:if test="${userId != null}">
           <input type="submit" value="Add to My Party!"/>
         </c:if>
