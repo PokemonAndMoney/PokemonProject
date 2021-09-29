@@ -17,4 +17,9 @@ public class PokemonService{
     public Optional<Pokemon> findPokemonById(Long id) {
     	return this.pokeRepository.findById(id);
     }
+
+	public Pokemon Create(Pokemon pokemon) {
+		this.pokeRepository.save(pokemon);
+		return pokemon;
+	}
 }

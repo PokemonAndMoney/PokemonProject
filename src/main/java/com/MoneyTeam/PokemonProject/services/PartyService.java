@@ -13,6 +13,10 @@ public class PartyService{
 	public PartyService(PartyRepository partyRepository) {
 		this.partyRepository = partyRepository;
 	}
+	public Party Create(Party party) {
+		this.partyRepository.save(party);
+		return party;
+	}
 	
     public Optional<Party> findPartyById(Long id) {
     	return partyRepository.findById(id);
