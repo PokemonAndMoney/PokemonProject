@@ -11,6 +11,8 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	@OneToMany(mappedBy="user", fetch = FetchType.LAZY)
+	private List<Party> party;
 	@Email
 	private String email;
 	@Size(min=8, max=200)

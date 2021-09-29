@@ -40,6 +40,7 @@
         <a href="/view/${id+1}"><button>Next Pokemon</button></a>
     	<div>
         <img src="${sprite}" alt="Pokemon" width="250" height="250">
+        
         <h3>Type(s):</h3>
                 <c:forEach items="${types}" var="type">
 			      <h2 style="display: flex">
@@ -47,15 +48,16 @@
                 <c:out value="${type}"/>
                 </h2>            
 		  </c:forEach>
-        <h3><c:out value="${hp}:${hpVal}" /></h3>
-        <h3><c:out value="${atk}:${atkVal}" /></h3>
-        <h3><c:out value="${def}:${defVal}" /></h3>
-        <h3><c:out value="${spAtk}:${spAtkVal}" /></h3>
-        <h3><c:out value="${spDef}:${spDefVal}" /></h3>
-        <h3><c:out value="${spd}:${spdVal}" /></h3>
-
+        <h3><c:out value="${hp}: ${hpVal}" /></h3>
+        <h3><c:out value="${atk}: ${atkVal}" /></h3>
+        <h3><c:out value="${def}: ${defVal}" /></h3>
+        <h3><c:out value="${spAtk}: ${spAtkVal}" /></h3>
+        <h3><c:out value="${spDef}: ${spDefVal}" /></h3>
+        <h3><c:out value="${spd}: ${spdVal}" /></h3>
+        
         </div>
         <div>
+        <!--><form:form method="POST" action="/party/add" modelAttribute="party"><!-->
         Move 1:
         <select>                
         <c:forEach items="${moves}" var="move">
@@ -104,6 +106,10 @@
                 </option>            
 		  </c:forEach>
         </select>
+        <c:if test="${userId != null}">
+          <input type="submit" value="Add to My Party!"/>
+        </c:if>
+        </form:form>
       </div>
     </div>
 </body>

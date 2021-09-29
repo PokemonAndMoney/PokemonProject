@@ -22,7 +22,7 @@ import com.MoneyTeam.PokemonProject.classes.Sprite;
 import com.MoneyTeam.PokemonProject.classes.Stat;
 
 @SpringBootApplication
-@RestController
+@Controller
 public class HomeController extends BaseController {
 	@Autowired
 	private RestTemplate restTemplate;
@@ -31,7 +31,7 @@ public class HomeController extends BaseController {
 	
 	@RequestMapping("/") // @RequestParam go/to/my/page?r=1
 	public String home() {
-		return "index.jsp";
+		return "/index.jsp";
 	}
 	@GetMapping("/{name}")
 	public Object getPokemon(@PathVariable("name") String name){
