@@ -35,26 +35,76 @@
       </ul>
     </div>
 		</nav>
-        <h1>Your Pokemon is <c:out value="${name}!" /></h1>
+        <h1>Your Pokemon is <c:out value="${name}!"/><c:out value=" ID#:${id}"/></h1>
+        <a href="/view/${id-1}"><button>Previous Pokemon</button></a>
+        <a href="/view/${id+1}"><button>Next Pokemon</button></a>
     	<div>
         <img src="${sprite}" alt="Pokemon" width="250" height="250">
+        <h3>Type(s):</h3>
+                <c:forEach items="${types}" var="type">
+			      <h2 style="display: flex">
+            
+                <c:out value="${type}"/>
+                </h2>            
+		  </c:forEach>
         <h3><c:out value="${hp}:${hpVal}" /></h3>
         <h3><c:out value="${atk}:${atkVal}" /></h3>
         <h3><c:out value="${def}:${defVal}" /></h3>
         <h3><c:out value="${spAtk}:${spAtkVal}" /></h3>
         <h3><c:out value="${spDef}:${spDefVal}" /></h3>
         <h3><c:out value="${spd}:${spdVal}" /></h3>
+
         </div>
         <div>
-        List of moves:
+        Move 1:
+        <select>                
         <c:forEach items="${moves}" var="move">
-			<ul>
-                <li>
+			      <option>
                 <c:out value="${move}"/>
-                </li>
-            </ul>
-		</c:forEach>
-        </div>
+                </option>            
+		  </c:forEach>
+        </select>
+      </div>
+              <div>
+        Move 2:
+        <select>                
+        <c:forEach items="${moves}" var="move">
+			      <option>
+                <c:out value="${move}"/>
+                </option>            
+		  </c:forEach>
+        </select>
+      </div>
+              <div>
+        Move 3:
+        <select>                
+        <c:forEach items="${moves}" var="move">
+			      <option>
+                <c:out value="${move}"/>
+                </option>            
+		  </c:forEach>
+        </select>
+      </div>
+              <div>
+        Move 4:
+        <select>                
+        <c:forEach items="${moves}" var="move">
+			      <option>
+                <c:out value="${move}"/>
+                </option>            
+		  </c:forEach>
+        </select>
+      </div>
+      <div>
+        Ability:
+        <select>                
+        <c:forEach items="${abilities}" var="ability">
+			      <option>
+                <c:out value="${ability}"/>
+                </option>            
+		  </c:forEach>
+        </select>
+      </div>
     </div>
 </body>
 </html>

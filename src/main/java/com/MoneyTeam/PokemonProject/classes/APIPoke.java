@@ -3,8 +3,9 @@ package com.MoneyTeam.PokemonProject.classes;
 import java.util.List;
 
 public class APIPoke {
+	private Long id;
 	private String name;
-
+	private List<Type> types;
 	private List<Ability> abilities;
 	private List<Move> moves;
 	private List<Stat> stats;
@@ -41,5 +42,18 @@ public class APIPoke {
 	public void setStats(List<Stat> stats) {
 		this.stats = stats;
 	}
+	public List<Type> getTypes() {
+		return types;
+	}
+	public void setTypes(List<Type> types) {
+		this.types = types;
+	}
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 
 }
