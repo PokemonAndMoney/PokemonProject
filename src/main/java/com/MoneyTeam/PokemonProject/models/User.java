@@ -27,6 +27,16 @@ public class User {
 	}
 
 
+	public List<Party> getParty() {
+		return party;
+	}
+
+
+	public void setParty(List<Party> party) {
+		this.party = party;
+	}
+
+
 	private Boolean isAdmin = false;
 	
 	@Column(updatable=false)

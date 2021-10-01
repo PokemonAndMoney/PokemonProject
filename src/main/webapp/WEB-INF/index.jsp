@@ -31,6 +31,10 @@
         <li class="nav-item">
           <a class="nav-link" href="/home/logout">Logout</a>
         </li>
+        <h3>Your team(s): </h3>
+		<c:forEach items="${allParties}" var="party">
+               <h4><a href="/party/view/${party.getId()}"><c:out value="${party.getName()}"/></a></h4>
+ 	 	</c:forEach>
         </c:if>
       </ul>
     </div>

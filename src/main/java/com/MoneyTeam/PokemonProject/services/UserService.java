@@ -20,8 +20,14 @@ public class UserService{
     public User findUserByEmail(String email) {
     	return this.userRepository.findByEmail(email);
     }
-    public Optional<User> findUserById(Long id) {
-    	return this.userRepository.findById(id);
+    public User findUserById(Long id) {
+    	Optional<User> u = userRepository.findById(id);
+    	
+    	if(u.isPresent()) {
+            return u.get();
+    	} else {
+    	    return null;
+    	}
     }
 
     

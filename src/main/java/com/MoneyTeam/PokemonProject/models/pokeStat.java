@@ -5,9 +5,9 @@ import javax.persistence.*;
 @Entity
 @Table(name="stat")
 public class pokeStat {
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name="pokemon_id")
-	private Pokemon pokemon;
+//	@ManyToOne(fetch = FetchType.LAZY)
+//	@JoinColumn(name="pokemon_id")
+//	private Pokemon pokemon;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;

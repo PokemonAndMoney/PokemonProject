@@ -18,7 +18,13 @@ public class PartyService{
 		return party;
 	}
 	
-    public Optional<Party> findPartyById(Long id) {
-    	return partyRepository.findById(id);
+    public Party findPartyById(Long id) {
+    	Optional<Party> p = partyRepository.findById(id);
+    	
+    	if(p.isPresent()) {
+            return p.get();
+    	} else {
+    	    return null;
+    	}
     }
 }
