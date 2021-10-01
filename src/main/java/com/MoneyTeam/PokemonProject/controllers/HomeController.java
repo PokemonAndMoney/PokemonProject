@@ -6,9 +6,12 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +23,9 @@ import com.MoneyTeam.PokemonProject.classes.Ability;
 import com.MoneyTeam.PokemonProject.classes.Move;
 import com.MoneyTeam.PokemonProject.classes.Sprite;
 import com.MoneyTeam.PokemonProject.classes.Stat;
+import com.MoneyTeam.PokemonProject.models.Party;
+import com.MoneyTeam.PokemonProject.models.User;
+import com.MoneyTeam.PokemonProject.services.UserService;
 
 @SpringBootApplication
 @Controller
@@ -27,14 +33,26 @@ public class HomeController extends BaseController {
 	@Autowired
 	private RestTemplate restTemplate;
 	
+	@Autowired
+	private UserService userService;
+	
 	private static String pokemonUrl = "https://pokeapi.co/api/v2/pokemon/";
 	
 	@RequestMapping("/") // @RequestParam go/to/my/page?r=1
-	public String home() {
-		return "/index.jsp";
+	public String home(HttpSession session, Model model) {
+		Long userId = (Long) session.getAttribute("userId");
+		if(userId !=  null ) {
+			User currentUser = userService.findUserById(userId);
+	    	
+	    	if(currentUser !=  null) {
+	    		List<Party> usersParties = currentUser.getParty();
+	    		model.addAttribute("allParties", usersParties);
+	    	}
+		}
+		return "index.jsp";
 	}
 	@GetMapping("/{name}")
-	public Object getPokemon(@PathVariable("name") String name){
+	public Object getPokemon(@PathVariable("name") String name, Model model){
 		Object pokemonObj =  restTemplate.getForObject(pokemonUrl + name, Object.class); // retrieves entire pokemon object	
 		
 		// api calls 
@@ -56,6 +74,7 @@ public class HomeController extends BaseController {
 		List<Stat> allStats = pokemon.getStats(); // returns array of linked hashmaps containing data of the pokemons base stats
 		int statValue = pokemon.getStats().get(0).getBase_stat(); // returns the base stat value of the first linked hashmap in the array (hp)
 		String statName = pokemon.getStats().get(0).getStat().getName(); // returns the stat name of the first linked hashmap in the array (hp)
+//		model.addAttribute("test", pokemonObj);
 		return pokemonObj;
 	}
 	

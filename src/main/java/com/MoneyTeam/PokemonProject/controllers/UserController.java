@@ -69,11 +69,11 @@ public String Login(
 }
 
 //checking if user is logged in
-private Optional<User> getUserSession(HttpSession session) {
-	Long id = (Long)session.getAttribute("userId");
-	if(id == null) return null;
-	return this.userService.findUserById(id);
-}
+//private Optional<User> getUserSession(HttpSession session) {
+//	Long id = (Long)session.getAttribute("userId");
+//	if(id == null) return null;
+//	return this.userService.findUserById(id);
+//}
 
 
 	
