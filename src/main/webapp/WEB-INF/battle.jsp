@@ -3,7 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %><!DOCTYPE html>
 
 <html lang="en">
-<head></head>
+<head>
+  </head>
 	<style>	
 	.error_message{
 		color:red;
@@ -11,8 +12,28 @@
 	.message_message{
 		color:limegreen;
 	}
+  .leftside, .rightside {
+height: 100vh;
+width: 50%;
+}
+
+.leftside{
+    background: turquoise;
+}
+
+.rightside {
+    background: red;
+}
+.flex{
+  display: flex;
+}
+.fluid-content {
+  background:turquoise;
+}
+
 	</style>
 <body>
+
     <div class="fluid-content">
     	<nav>
 		    <div class="collapse navbar-collapse" id="navbarNav">
@@ -34,15 +55,36 @@
         <li class="nav-item">
         <a class="nav-link" href="/battle">Battle</a>
         </li>
-      <h3>Choose your battle team: </h3>
-		<c:forEach items="${allParties}" var="party">
-               <h4><a href="/party/view/${party.getId()}"><c:out value="${party.getName()}"/></a></h4>
- 	 	</c:forEach>
-        </c:if>
+     
       </ul>
     </div>
 		</nav>
         <!--battle logic and views go in here-->
     </div>
+<div class="flex">
+  <div class="leftside">
+    <h3>Choose your team: </h3>
+    <select name="opponent" id="teams">
+      <c:forEach items="${currentUserParties}" var="party">
+          <option value="${party.getId()}">
+            <c:out value="${party.getName()}"/>
+          </option>
+        </c:forEach>
+    </select>
+        </c:if>
+</div>
+    <div class="rightside">
+      <h3>Choose enemy team: </h3>
+      <select name="opponent" id="teams">
+        <c:forEach items="${opponentParties}" var="party">
+            <option value="${party.getId()}">
+              <c:out value="${party.getName()}"/>
+            </option>
+          </c:forEach>
+      </select>
+  </div>
+</div>
+
+
 </body>
 </html>

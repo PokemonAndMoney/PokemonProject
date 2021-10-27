@@ -55,24 +55,56 @@ public class BattleController {
 		}
 		return "battle.jsp";
 	}
-	@RequestMapping("/battle/setup/{oppId}")
-	public String setupBattle(@PathVariable("oppId") int oppId, HttpSession session, Model model) {
-		// this page will display all parties for the user and opponent
-		// the user will choose their party and the opponents party to battle and then go to the battle page
-		Long userId = (Long) session.getAttribute("userId");
-		if(userId !=  null ) {
-	    	User currentUser = userService.findUserById(userId);
-	    	User opponent = userService.findUserById((long) oppId);
-	    	if(currentUser !=  null) {
-	    		List<Party> usersParties = currentUser.getParty();
-	    		model.addAttribute("currentUserParties", usersParties);
-	    	}
-	    	if(opponent !=  null) {
-	    		List<Party> opponentParties = opponent.getParty();
-	    		model.addAttribute("opponentParties", opponentParties);
-	    	}
-		}
-		
-		return "battleSetup.jsp";
+	@RequestMapping("/battle/selectUser")
+	public String selectUserToBattle(HttpSession session,
+	User user,
+	Model model,
+	@ModelAttribute("party") Party party,
+	RedirectAttributes redirectAttributes) {
+
+	List<User> allUsers = userRepo.findAll();
+	model.addAttribute("users", allUsers);
+
+	return "selectUserToBattle.jsp";
 	}
+	 @RequestMapping("/battle/setup/{oppId}")
+	 public String setupBattle(@PathVariable("oppId") int oppId, HttpSession session, Model model) {
+	 // this page will display all parties for the user and opponent
+	 // the user will choose their party and the opponents party to battle and then go to the battle page
+	 Long userId = (Long) session.getAttribute("userId");
+	 if(userId !=  null ) {
+	     User currentUser = userService.findUserById(userId);
+	     User opponent = userService.findUserById((long) oppId);
+	     if(currentUser !=  null) {
+	     List<Party> usersParties = currentUser.getParty();
+	     model.addAttribute("currentUserParties", usersParties);
+	     }
+	     if(opponent !=  null) {
+	     List<Party> opponentParties = opponent.getParty();
+	     model.addAttribute("opponentParties", opponentParties);
+	     }
+	 }
+
+	 return "battle.jsp";
+	 }
+//	@RequestMapping("/battle/setup/{oppId}")
+//	public String setupBattle(@PathVariable("oppId") int oppId, HttpSession session, Model model) {
+//		// this page will display all parties for the user and opponent
+//		// the user will choose their party and the opponents party to battle and then go to the battle page
+//		Long userId = (Long) session.getAttribute("userId");
+//		if(userId !=  null ) {
+//	    	User currentUser = userService.findUserById(userId);
+//	    	User opponent = userService.findUserById((long) oppId);
+//	    	if(currentUser !=  null) {
+//	    		List<Party> usersParties = currentUser.getParty();
+//	    		model.addAttribute("currentUserParties", usersParties);
+//	    	}
+//	    	if(opponent !=  null) {
+//	    		List<Party> opponentParties = opponent.getParty();
+//	    		model.addAttribute("opponentParties", opponentParties);
+//	    	}
+//		}
+//		
+//		return "battleSetup.jsp";
+//	}
 }
