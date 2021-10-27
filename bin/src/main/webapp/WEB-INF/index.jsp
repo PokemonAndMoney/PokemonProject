@@ -31,15 +31,7 @@
         <li class="nav-item">
           <a class="nav-link" href="/home/logout">Logout</a>
         </li>
-        <c:if test="${userId != null}">
-        <li class="nav-item">
-          <a class="nav-link" href="/party/new">New Team</a>
-        </li>
-        </c:if>
-        <li class="nav-item">
-        <a class="nav-link" href="/battle">Battle</a>
-        </li>
-      <h3>Your team(s): </h3>
+        <h3>Your team(s): </h3>
 		<c:forEach items="${allParties}" var="party">
                <h4><a href="/party/view/${party.getId()}"><c:out value="${party.getName()}"/></a></h4>
  	 	</c:forEach>
