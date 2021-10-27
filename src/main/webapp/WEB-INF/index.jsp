@@ -37,7 +37,7 @@
         </li>
         </c:if>
         <li class="nav-item">
-        <a class="nav-link" href="/battle">Battle</a>
+        <a class="nav-link" href="/battle/selectUser">Battle</a>
         </li>
       <h3>Your team(s): </h3>
 		<c:forEach items="${allParties}" var="party">
