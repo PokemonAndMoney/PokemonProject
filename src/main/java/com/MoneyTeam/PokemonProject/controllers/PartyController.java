@@ -55,7 +55,7 @@ public class PartyController extends BaseController{
 //			List<pokeMove> move,
 //			Long id,
 //			RedirectAttributes redirectAttributes) {
-//		return "add_party.jsp";
+//		return "add_party.jsp"; 
 //	}
 //	@PostMapping("/party/add") // @RequestParam go/to/my/page?r=1
 //	public String addtoParty(HttpSession session,
