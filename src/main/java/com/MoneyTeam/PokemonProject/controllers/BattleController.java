@@ -37,6 +37,12 @@ public class BattleController {
 	
 	@Autowired
 	private UserRepository userRepo;
+	
+	@Autowired
+	private PartyService partyService;
+	@Autowired
+	private PartyRepository partyRepo;
+	
 	//creating a battle
 	@RequestMapping("/battle")
 	public String getTeam(HttpSession session,
@@ -84,8 +90,34 @@ public class BattleController {
 	     model.addAttribute("opponentParties", opponentParties);
 	     }
 	 }
-
 	 return "battle.jsp";
+	 }
+	 @RequestMapping("/battle/setup/start")
+		public String BattleStart(
+		HttpSession session,
+		User user,
+		Model model,
+		@ModelAttribute("party") Party party,
+		RedirectAttributes redirectAttributes) {
+
+		List<User> allUsers = userRepo.findAll();
+		model.addAttribute("users", allUsers);
+
+		return "fight.jsp";
+		}
+	 @RequestMapping(value="/goToBattle", method=RequestMethod.POST)
+		public String process(@RequestParam(value="userId") int userId, @RequestParam(value="oppId") int oppId, HttpSession session, Model model) {
+		 
+		  Party userParty = partyService.findPartyById((long) userId);
+		  Party oppParty = partyService.findPartyById((long) oppId);
+		  
+		  List<Pokemon> userPokemonTeam = userParty.getPokemon();
+		  List<Pokemon> oppPokemonTeam = oppParty.getPokemon();
+		  
+		  model.addAttribute("userPokemonTeam", userPokemonTeam);
+		  model.addAttribute("oppPokemonTeam", oppPokemonTeam);
+		 
+		 return "string";
 	 }
 //	@RequestMapping("/battle/setup/{oppId}")
 //	public String setupBattle(@PathVariable("oppId") int oppId, HttpSession session, Model model) {

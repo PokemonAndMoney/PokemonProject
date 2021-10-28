@@ -55,36 +55,41 @@ width: 50%;
         <li class="nav-item">
         <a class="nav-link" href="/battle">Battle</a>
         </li>
-     
+      </c:if>
       </ul>
     </div>
 		</nav>
         <!--battle logic and views go in here-->
     </div>
-<div class="flex">
-  <div class="leftside">
-    <h3>Choose your team: </h3>
-    <select name="opponent" id="teams">
-      <c:forEach items="${currentUserParties}" var="party">
-          <option value="${party.getId()}">
-            <c:out value="${party.getName()}"/>
-          </option>
-        </c:forEach>
-    </select>
-        </c:if>
-</div>
-    <div class="rightside">
-      <h3>Choose enemy team: </h3>
-      <select name="opponent" id="teams">
-        <c:forEach items="${opponentParties}" var="party">
-            <option value="${party.getId()}">
-              <c:out value="${party.getName()}"/>
-            </option>
-          </c:forEach>
-      </select>
-  </div>
-</div>
+
+      <form action="/goToBattle" method="post" class="flex">
+      <div class="leftside">
+        <h3>Choose your team: </h3>
+        
+          <select>
+            <c:forEach items="${currentUserParties}" var="party">
+              <option name ="userId" value="${party.getId()}">
+                <c:out value="${party.getName()}"/> 
+              </option>
+            </c:forEach>
+          </select>       
+      </div>
+
+        <div class="rightside">
+          <h3>Choose enemy team: </h3>
+          <select>
+            <c:forEach items="${opponentParties}" var="party">
+                <option name ="oppId" value="${party.getId()}">
+                  <c:out value="${party.getName()}"/>
+                </option>
+              </c:forEach>
+          </select>
+          <button type="submit">Ready for battle !</button>
+      </div>
+      
+    </form>
 
 
 </body>
 </html>
+
