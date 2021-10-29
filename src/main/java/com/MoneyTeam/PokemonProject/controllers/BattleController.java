@@ -273,6 +273,113 @@ public class BattleController {
 			  session.setAttribute("userPokemonHp", userPokemonHp);
 			  session.setAttribute("oppPokemonHp", oppPokemonHp);
 		  }
+		  else if (oppPokemon.getSpd() == userPokemon.getSpd()) {//speed tie - flip a coin
+			  if(CoinFlip() == 1) {//user goes first
+				  str1 += userPokemon.getName() + " used " + userMove + ".";
+				  str2 += oppPokemon.getName() + " used " + randMove + ".";
+				  
+				  if(userAtk >= 180) {
+					  oppPokemonHp -= 45;
+					  str4 += "dealt 45 dmg to enemy pokemon.";
+				  }
+				  if(userAtk <= 140) {
+					  oppPokemonHp -= 20;
+					  str4 += "dealt 20 dmg to enemy pokemon.";
+				  }else if (userAtk > 140 && userAtk < 180){
+					  oppPokemonHp -= 30;
+					  str4 += "dealt 30 dmg to enemy pokemon.";
+				  }
+				  
+				  if(oppAtk >= 180 && oppPokemonHp > 0) {
+					  userPokemonHp -= 30;
+					  str3 += "dealt 30 dmg to your pokemon.";
+				  }
+				  if(oppAtk <= 140 && oppPokemonHp > 0) {
+					  userPokemonHp -= 15;
+					  str3 += "dealt 15 dmg to your pokemon.";
+				  }else if (oppAtk > 140 && oppAtk < 180 && oppPokemonHp > 0){
+					  userPokemonHp -= 20;
+					  str3 += "dealt 20 dmg to your pokemon.";
+				  }
+				  if (oppPokemonHp <=  0) {
+					  if(oppPokemonTeam.size() ==  1) {
+						  return "winner.jsp";
+					  }
+					  oppPokemonTeam.remove(0);
+					  session.setAttribute("oppPokemonTeam", oppPokemonTeam);
+					  oppPokemon = oppPokemonTeam.get(0);
+					  oppPokemonHp = oppPokemon.getHp();
+					  str2 += oppPokemon.getName() + " fainted!";
+					  model.addAttribute("oppPokemon", oppPokemon);
+					  model.addAttribute("oppPokemonHp", oppPokemonHp);
+				  }
+				  if(userPokemonHp <=  0) {
+					  if(userPokemonTeam.size() ==  1) {
+						  return "loser.jsp";
+					  }
+					  userPokemonTeam.remove(0);
+					  session.setAttribute("userPokemonTeam", userPokemonTeam);
+					  userPokemon = userPokemonTeam.get(0);
+					  userPokemonHp = userPokemon.getHp();
+					  str1 += userPokemon.getName() + " fainted!";
+					  model.addAttribute("userPokemonHp", userPokemonHp);
+					  model.addAttribute("userPokemon", userPokemon);
+				  }
+				  session.setAttribute("userPokemonHp", userPokemonHp);
+				  session.setAttribute("oppPokemonHp", oppPokemonHp);
+			  }
+			  else {//opp goes first
+				  str2 += userPokemon.getName() + " used " + userMove + ".";
+				  str1 += oppPokemon.getName() + " used " + randMove + ".";
+				  if(oppAtk >= 180) {
+					  userPokemonHp -= 45;
+					  str3 += "dealt 45 dmg to your pokemon.";
+				  }
+				  if(oppAtk <= 140) {
+					  userPokemonHp -= 20;
+					  str3 += "dealt 20 dmg to your pokemon.";
+				  }else if (oppAtk > 140 && oppAtk < 180){
+					  userPokemonHp -= 30;
+					  str3 += "dealt 30 dmg to your pokemon.";
+				  }
+
+				  if(userAtk >= 180 && userPokemonHp > 0) {
+					  oppPokemonHp -= 30;
+					  str4 += "dealt 30 dmg to enemy pokemon.";
+				  }
+				  if(userAtk <= 140 && userPokemonHp > 0) {
+					  oppPokemonHp -= 15;
+					  str4 += "dealt 15 dmg to enemy pokemon.";
+				  }else if (userAtk > 140 && userPokemonHp > 0){
+					  oppPokemonHp -= 20;
+					  str4 += "dealt 20 dmg to enemy pokemon.";
+				  }
+				  if(userPokemonHp <=  0) {
+					  if(userPokemonTeam.size() ==  1) {
+						  return "loser.jsp";
+					  }
+					  userPokemonTeam.remove(0);
+					  session.setAttribute("userPokemonTeam", userPokemonTeam);
+					  userPokemon = userPokemonTeam.get(0);
+					  userPokemonHp = userPokemon.getHp();
+					  model.addAttribute("userPokemonHp", userPokemonHp);
+					  model.addAttribute("userPokemon", userPokemon);
+				  }
+				  if (oppPokemonHp <=  0) {
+					  if(oppPokemonTeam.size() ==  1) {
+						  return "winner.jsp";
+					  }
+					  oppPokemonTeam.remove(0);
+					  session.setAttribute("oppPokemonTeam", oppPokemonTeam);
+					  oppPokemon = oppPokemonTeam.get(0);
+					  oppPokemonHp = oppPokemon.getHp();
+					  model.addAttribute("oppPokemon", oppPokemon);
+					  model.addAttribute("oppPokemonHp", oppPokemonHp);
+				  }
+				  session.setAttribute("userPokemonHp", userPokemonHp);
+				  session.setAttribute("oppPokemonHp", oppPokemonHp);
+			  }
+		  }
 		  model.addAttribute("userPokemonHp", session.getAttribute("userPokemonHp"));
 		  model.addAttribute("oppPokemonHp", session.getAttribute("oppPokemonHp"));
 		  model.addAttribute("str1", str1);
@@ -282,5 +389,11 @@ public class BattleController {
 		 
 		 return "battlePage.jsp";
 	 }
+public static int CoinFlip() {
+	int i;
+    i = (int)(2*Math.random());
+    System.out.println(i);
+	return i;
+}
 
 }
