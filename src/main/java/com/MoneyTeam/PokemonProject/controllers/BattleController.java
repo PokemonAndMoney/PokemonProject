@@ -163,31 +163,60 @@ public class BattleController {
 		  int oppPokemonHp = (int) session.getAttribute("oppPokemonHp");
 		  String str1 = "";
 		  String str2 = "";
-
+		  String str3 = "";
+		  String str4 = "";
+		  int userAtk = 0;
+		  int oppAtk = 0;
+		  userAtk = userPokemon.getAtk()+userPokemon.getSpAtk();
+		  oppAtk = oppPokemon.getAtk()+oppPokemon.getSpAtk();
 		  if(userPokemon.getSpd() > oppPokemon.getSpd()) {
 			  str1 += userPokemon.getName() + " used " + userMove + ".";
 			  str2 += oppPokemon.getName() + " used " + randMove + ".";
-			  oppPokemonHp -= 30;
+			  
+			  if(userAtk >= 180) {
+				  oppPokemonHp -= 45;
+				  str4 += "dealt 45 dmg to enemy pokemon.";
+			  }
+			  if(userAtk <= 140) {
+				  oppPokemonHp -= 20;
+				  str4 += "dealt 20 dmg to enemy pokemon.";
+			  }else if (userAtk > 140 && userAtk < 180){
+				  oppPokemonHp -= 30;
+				  str4 += "dealt 30 dmg to enemy pokemon.";
+			  }
+			  
+			  if(oppAtk >= 180 && oppPokemonHp > 0) {
+				  userPokemonHp -= 30;
+				  str3 += "dealt 30 dmg to your pokemon.";
+			  }
+			  if(oppAtk <= 140 && oppPokemonHp > 0) {
+				  userPokemonHp -= 15;
+				  str3 += "dealt 15 dmg to your pokemon.";
+			  }else if (oppAtk > 140 && oppAtk < 180 && oppPokemonHp > 0){
+				  userPokemonHp -= 20;
+				  str3 += "dealt 20 dmg to your pokemon.";
+			  }
 			  if (oppPokemonHp <=  0) {
 				  if(oppPokemonTeam.size() ==  1) {
-					  return "redirect:/winner";
+					  return "winner.jsp";
 				  }
 				  oppPokemonTeam.remove(0);
 				  session.setAttribute("oppPokemonTeam", oppPokemonTeam);
 				  oppPokemon = oppPokemonTeam.get(0);
 				  oppPokemonHp = oppPokemon.getHp();
+				  str2 += oppPokemon.getName() + " fainted!";
 				  model.addAttribute("oppPokemon", oppPokemon);
 				  model.addAttribute("oppPokemonHp", oppPokemonHp);
 			  }
-			  userPokemonHp -= 20;
 			  if(userPokemonHp <=  0) {
 				  if(userPokemonTeam.size() ==  1) {
-					  return "redirect:/loser";
+					  return "loser.jsp";
 				  }
 				  userPokemonTeam.remove(0);
 				  session.setAttribute("userPokemonTeam", userPokemonTeam);
 				  userPokemon = userPokemonTeam.get(0);
 				  userPokemonHp = userPokemon.getHp();
+				  str1 += userPokemon.getName() + " fainted!";
 				  model.addAttribute("userPokemonHp", userPokemonHp);
 				  model.addAttribute("userPokemon", userPokemon);
 			  }
@@ -196,7 +225,29 @@ public class BattleController {
 		  } else if (oppPokemon.getSpd() > userPokemon.getSpd()) {
 			  str2 += userPokemon.getName() + " used " + userMove + ".";
 			  str1 += oppPokemon.getName() + " used " + randMove + ".";
-			  userPokemonHp -= 30;
+			  if(oppAtk >= 180) {
+				  userPokemonHp -= 45;
+				  str3 += "dealt 45 dmg to your pokemon.";
+			  }
+			  if(oppAtk <= 140) {
+				  userPokemonHp -= 20;
+				  str3 += "dealt 20 dmg to your pokemon.";
+			  }else if (oppAtk > 140 && oppAtk < 180){
+				  userPokemonHp -= 30;
+				  str3 += "dealt 30 dmg to your pokemon.";
+			  }
+
+			  if(userAtk >= 180 && userPokemonHp > 0) {
+				  oppPokemonHp -= 30;
+				  str4 += "dealt 30 dmg to enemy pokemon.";
+			  }
+			  if(userAtk <= 140 && userPokemonHp > 0) {
+				  oppPokemonHp -= 15;
+				  str4 += "dealt 15 dmg to enemy pokemon.";
+			  }else if (userAtk > 140 && userPokemonHp > 0){
+				  oppPokemonHp -= 20;
+				  str4 += "dealt 20 dmg to enemy pokemon.";
+			  }
 			  if(userPokemonHp <=  0) {
 				  if(userPokemonTeam.size() ==  1) {
 					  return "loser.jsp";
@@ -208,7 +259,6 @@ public class BattleController {
 				  model.addAttribute("userPokemonHp", userPokemonHp);
 				  model.addAttribute("userPokemon", userPokemon);
 			  }
-			  oppPokemonHp -= 20;
 			  if (oppPokemonHp <=  0) {
 				  if(oppPokemonTeam.size() ==  1) {
 					  return "winner.jsp";
@@ -227,6 +277,8 @@ public class BattleController {
 		  model.addAttribute("oppPokemonHp", session.getAttribute("oppPokemonHp"));
 		  model.addAttribute("str1", str1);
 		  model.addAttribute("str2", str2);
+		  model.addAttribute("str3", str3);
+		  model.addAttribute("str4", str4);
 		 
 		 return "battlePage.jsp";
 	 }

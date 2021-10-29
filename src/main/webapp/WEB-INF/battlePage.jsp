@@ -81,6 +81,8 @@ width: 50%;
                 <h4>
 	<c:out value="${str1}"/>
 	<c:out value="${str2}"/>
+	<c:out value="${str3}"/>
+	<c:out value="${str4}"/>
 	</h4>
          <h4>What move will you use?</h4>      
          <form action="/attack" method="POST">
