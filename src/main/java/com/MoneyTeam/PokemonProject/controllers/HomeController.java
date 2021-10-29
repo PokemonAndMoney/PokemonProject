@@ -21,6 +21,7 @@ import org.springframework.web.client.RestTemplate;
 import com.MoneyTeam.PokemonProject.classes.APIPoke;
 import com.MoneyTeam.PokemonProject.classes.Ability;
 import com.MoneyTeam.PokemonProject.classes.Move;
+import com.MoneyTeam.PokemonProject.classes.MoveMove;
 import com.MoneyTeam.PokemonProject.classes.Sprite;
 import com.MoneyTeam.PokemonProject.classes.Stat;
 import com.MoneyTeam.PokemonProject.models.Party;
@@ -64,7 +65,9 @@ public class HomeController extends BaseController {
 		
 		// moves 
 		List<Move> allMoves = pokemon.getMoves(); // returns array of linked hashmaps containing the moves data
-		String move = pokemon.getMoves().get(0).getMove().getName(); // returns the name of the first move within the array of linked hashmaps
+		MoveMove move = pokemon.getMoves().get(0).getMove(); // returns the name of the first move within the array of linked hashmaps
+		String moveUrl = pokemon.getMoves().get(0).getMove().getUrl(); // returns the name of the first move within the array of linked hashmaps
+
 		
 		// sprites or pokemon image
 		Sprite allSprites = pokemon.getSprites(); // returns array of linked hashmaps containing the url's of the pokemon's front and back images
@@ -75,7 +78,7 @@ public class HomeController extends BaseController {
 		int statValue = pokemon.getStats().get(0).getBase_stat(); // returns the base stat value of the first linked hashmap in the array (hp)
 		String statName = pokemon.getStats().get(0).getStat().getName(); // returns the stat name of the first linked hashmap in the array (hp)
 //		model.addAttribute("test", pokemonObj);
-		return pokemonObj;
+		return move;
 	}
 	
 }
