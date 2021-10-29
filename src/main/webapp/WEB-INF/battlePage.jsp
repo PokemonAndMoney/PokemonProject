@@ -78,7 +78,10 @@ width: 50%;
         <h3><c:out value="${userPokemon.getName()}"/> </h3>
         <img src="${userPokemon.getImg()}" alt="Pokemon" width="250" height="250">
         <h3>Hp: <c:out value="${userPokemonHp}"/> </h3>
-          
+                <h4>
+	<c:out value="${str1}"/>
+	<c:out value="${str2}"/>
+	</h4>
          <h4>What move will you use?</h4>      
          <form action="/attack" method="POST">
     				<input type="hidden" name="userMove" value="${userPokemon.getMove1()}">
@@ -104,7 +107,7 @@ width: 50%;
           <img src="${oppPokemon.getImg()}" alt="Pokemon" width="250" height="250">
           <h3>Hp: <c:out value="${oppPokemonHp}"/> </h3>
       </div>
-      
+
     </div>
 
 

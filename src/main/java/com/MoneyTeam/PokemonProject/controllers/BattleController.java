@@ -167,7 +167,7 @@ public class BattleController {
 		  if(userPokemon.getSpd() > oppPokemon.getSpd()) {
 			  str1 += userPokemon.getName() + " used " + userMove + ".";
 			  str2 += oppPokemon.getName() + " used " + randMove + ".";
-			  oppPokemonHp -= 20;
+			  oppPokemonHp -= 30;
 			  if (oppPokemonHp <=  0) {
 				  if(oppPokemonTeam.size() ==  1) {
 					  return "redirect:/winner";
@@ -196,10 +196,10 @@ public class BattleController {
 		  } else if (oppPokemon.getSpd() > userPokemon.getSpd()) {
 			  str2 += userPokemon.getName() + " used " + userMove + ".";
 			  str1 += oppPokemon.getName() + " used " + randMove + ".";
-			  userPokemonHp -= 20;
+			  userPokemonHp -= 30;
 			  if(userPokemonHp <=  0) {
 				  if(userPokemonTeam.size() ==  1) {
-					  return "redirect:/loser";
+					  return "loser.jsp";
 				  }
 				  userPokemonTeam.remove(0);
 				  session.setAttribute("userPokemonTeam", userPokemonTeam);
@@ -211,7 +211,7 @@ public class BattleController {
 			  oppPokemonHp -= 20;
 			  if (oppPokemonHp <=  0) {
 				  if(oppPokemonTeam.size() ==  1) {
-					  return "redirect:/winner";
+					  return "winner.jsp";
 				  }
 				  oppPokemonTeam.remove(0);
 				  session.setAttribute("oppPokemonTeam", oppPokemonTeam);
