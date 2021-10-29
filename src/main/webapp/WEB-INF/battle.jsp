@@ -66,9 +66,9 @@ width: 50%;
       <div class="leftside">
         <h3>Choose your team: </h3>
         
-          <select>
+          <select name="userId">
             <c:forEach items="${currentUserParties}" var="party">
-              <option name ="userId" value="${party.getId()}">
+              <option value="${party.getId()}">
                 <c:out value="${party.getName()}"/> 
               </option>
             </c:forEach>
@@ -77,9 +77,9 @@ width: 50%;
 
         <div class="rightside">
           <h3>Choose enemy team: </h3>
-          <select>
+          <select name="oppId">
             <c:forEach items="${opponentParties}" var="party">
-                <option name ="oppId" value="${party.getId()}">
+                <option  value="${party.getId()}">
                   <c:out value="${party.getName()}"/>
                 </option>
               </c:forEach>
